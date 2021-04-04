@@ -1,0 +1,25 @@
+{
+  "name": "glcanvas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r-asada-ab/glcanvas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r-asada-ab/glcanvas/issues"
+  },
+  "homepage": "https://github.com/r-asada-ab/glcanvas#readme",
+  "devDependencies": {
+    "ts-loader": "^8.0.16",
+    "typescript": "^4.1.4",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
+  }
+}
