@@ -38,13 +38,13 @@ export class GLState {
         return this._viewport.y
     }
 
-    // キャンバス座標をGLの座標に直す
-    public static convertVertex(canvasPoint: Vector): Vector {
+    // GLの座標に変換する
+    public static convertVertex(pos: Vector): Vector {
         let hw = this._viewport.x / 2.0
         let hh = this._viewport.y / 2.0
         
-        let x = (canvasPoint.x - hw) / hw
-        let y = (hh - canvasPoint.y) / hh
+        let x = (pos.x - hw) / hw
+        let y = (hh - pos.y) / hh
 
         let v = new Vector()
         v.x = x

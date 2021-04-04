@@ -9,5 +9,4 @@ function main() {
     glCanvas.run()
 }
 
-
 main()

@@ -1,3 +1,4 @@
+import { PointColorShader } from "./PointColorShader";
 import { PointShader } from "./PointShader";
 import { Shader } from "./Shader";
 import { ShaderType } from "./ShaderType";
@@ -13,8 +14,10 @@ export class ShaderManager {
         Object.entries(ShaderType).forEach(([key, value]) => {
             switch (value) {
                 case "PointShader":
-                    let shader = new PointShader()
-                    this.shaders.set(ShaderType.PointShader, shader)
+                    this.shaders.set(ShaderType.PointShader, new PointShader())
+                    break
+                case "PointColorShader":
+                    this.shaders.set(ShaderType.PointColorShader, new PointColorShader())
                     break
                 default:
                     break
