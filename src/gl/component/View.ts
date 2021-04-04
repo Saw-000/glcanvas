@@ -65,5 +65,10 @@ export class View {
     }
 
     // 描画する
-    protected draw() {}
+    protected draw() {
+        // 子要素を描画する
+        this.children.forEach((child) => {
+            child.draw()
+        })
+    }
 }
