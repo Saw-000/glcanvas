@@ -2,6 +2,7 @@ import { GLState } from "../GLState";
 import { Vector } from "../math/Vector";
 import { Shader } from "./Shader";
 
+// 位置を指定するシェーダー
 export class PointShader extends Shader {
 
     vertexShader = `
@@ -41,11 +42,6 @@ export class PointShader extends Shader {
             nVertices.push(vertices[i].x)
             nVertices.push(vertices[i].y)
         }
-        const gl = GLState.context
-        var positionBuffer = this.createBufferObject(gl.ARRAY_BUFFER, nVertices)
-        gl.useProgram(this.program);
-        var location = gl.getAttribLocation(this.program, "a_position");
-        this.setAttribute(location, 2, positionBuffer)
-        gl.drawArrays(mode, 0, nVertices.length / 2.0);
+        this.draw(mode, nVertices)
     }
 }

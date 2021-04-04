@@ -23,7 +23,7 @@ export class Texture {
     }
 
     // テクスチャを取得する
-    public getTexture(): WebGLTexture {
+    public getWebGLTexture(): WebGLTexture {
         return this.texture;
     }
 }

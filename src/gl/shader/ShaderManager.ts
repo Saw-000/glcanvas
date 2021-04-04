@@ -1,5 +1,6 @@
 import { PointColorShader } from "./PointColorShader";
 import { PointShader } from "./PointShader";
+import { PointTextureShader } from "./PointTextureShader";
 import { Shader } from "./Shader";
 import { ShaderType } from "./ShaderType";
 
@@ -18,6 +19,9 @@ export class ShaderManager {
                     break
                 case "PointColorShader":
                     this.shaders.set(ShaderType.PointColorShader, new PointColorShader())
+                    break
+                case "PointTextureShader":
+                    this.shaders.set(ShaderType.PointTextureShader, new PointTextureShader())
                     break
                 default:
                     break

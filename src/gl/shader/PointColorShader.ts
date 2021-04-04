@@ -3,6 +3,7 @@ import { GLState } from "../GLState";
 import { Vector } from "../math/Vector";
 import { Shader } from "./Shader";
 
+// 位置と色を指定するシェーダー
 export class PointColorShader extends Shader {
 
     vertexShader = `
@@ -56,14 +57,6 @@ export class PointColorShader extends Shader {
             nColor.push(colors[i].b)
             nColor.push(colors[i].a)
         }
-        const gl = GLState.context
-        const positionBuffer = this.createBufferObject(gl.ARRAY_BUFFER, nVertices)
-        const colorBuffer = this.createBufferObject(gl.ARRAY_BUFFER, nColor)
-        gl.useProgram(this.program);
-        var positionLocation = gl.getAttribLocation(this.program, "a_position");
-        let colorLocation = gl.getAttribLocation(this.program, "a_Color");
-        this.setAttribute(positionLocation, 2, positionBuffer)
-        this.setAttribute(colorLocation, 4, colorBuffer)
-        gl.drawArrays(mode, 0, nVertices.length / 2.0)
+        this.draw(mode, nVertices, nColor)
     }
 }

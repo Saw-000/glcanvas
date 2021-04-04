@@ -1,4 +1,5 @@
 export enum ShaderType {
     PointShader, 
-    PointColorShader
+    PointColorShader,
+    PointTextureShader
 }
