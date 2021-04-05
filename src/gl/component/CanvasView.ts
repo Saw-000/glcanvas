@@ -1,6 +1,7 @@
 import { GLState } from "../GLState";
 import { Vector } from "../math/Vector";
 import { PointColorShader } from "../shader/PointColorShader";
+import { PointTextureShader } from "../shader/PointTextureShader";
 import { ShaderManager } from "../shader/ShaderManager";
 import { ShaderType } from "../shader/ShaderType";
 import { View } from "./View";
@@ -21,7 +22,10 @@ export class CanvasView extends View {
 
         const gl = GLState.context
         if (this.texture != null) { // テクスチャが指定されているとき
-
+            const shader = <PointTextureShader>ShaderManager.getShader(ShaderType.PointTextureShader)
+            const vertices = this.getVertices()
+            const texCoord = this.getVertexCoord()
+            shader.drawVector(gl.TRIANGLE_STRIP, vertices, texCoord, this.texture)
         } else { // テクスチャが指定されていないとき
             const shader = <PointColorShader>ShaderManager.getShader(ShaderType.PointColorShader)
             const vertices = this.getVertices()
