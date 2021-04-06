@@ -19,7 +19,6 @@ export class GLCanvas {
     // コンストラクタ
     constructor(canvas: HTMLCanvasElement) {
         this.views = []
-        this.layers = []
 
         // 初期化
         GLState.context = canvas.getContext("webgl")
@@ -104,10 +103,6 @@ export class GLCanvas {
         c2.b = 1.0
         c2.a = 1.0
         layer2.fill(c2)
-
-        this.layers.push(layer0)
-        this.layers.push(layer1)
-        this.layers.push(layer2)
 
         // マウスイベント
         document.getElementById("layer-1").onmousedown = () => {
