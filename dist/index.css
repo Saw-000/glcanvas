@@ -1,0 +1,30 @@
+html, body {
+    margin: 0%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#container {
+    flex: 1;
+}
+
+.layer-item {
+    margin: 6px;
+    border-radius: 2px;
+    border: 1px solid  #E81E63;
+    width: 60px;
+    height: 48px;
+    font-size: x-small;
+    text-align: center;
+    line-height: 48px;
+}
+
+footer {
+    border-top: 1px solid #E81E63;
+    height: 60px;
+    display: flex;
+}

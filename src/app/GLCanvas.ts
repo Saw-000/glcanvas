@@ -2,6 +2,8 @@ import { Color } from "../gl/color/Color"
 import { CanvasView } from "../gl/component/CanvasView"
 import { View } from "../gl/component/View"
 import { GLState } from "../gl/GLState"
+import { Layer } from "../gl/layer/Layer"
+import { LayerInfo } from "../gl/layer/LayerInfo"
 import { Vector } from "../gl/math/Vector"
 import { PointColorShader } from "../gl/shader/PointColorShader"
 import { ShaderManager } from "../gl/shader/ShaderManager"
@@ -11,12 +13,15 @@ import { Texture } from "../gl/texture/Texture"
 // WebGLで描画するためのキャンバス
 export class GLCanvas {
 
+    // ビュー
     private views: View[]
 
     // コンストラクタ
     constructor(canvas: HTMLCanvasElement) {
         this.views = []
+        this.layers = []
 
+        // 初期化
         GLState.context = canvas.getContext("webgl")
         GLState.width = canvas.width
         GLState.height = canvas.height
@@ -77,6 +82,45 @@ export class GLCanvas {
         this.views.push(view)
         this.views.push(canvasView)
         this.views.push(offscreenView)
+
+        // レイヤー
+        const info0 = new LayerInfo(100, 100)
+        const layer0 = new Layer(info0)
+        let c0 = new Color()    
+        c0.r = 1.0
+        c0.a = 1.0
+        layer0.fill(c0)
+
+        const info1 = new LayerInfo(100, 100)
+        const layer1 = new Layer(info1)
+        let c1 = new Color()    
+        c1.g = 1.0
+        c1.a = 1.0
+        layer1.fill(c1)
+
+        const info2 = new LayerInfo(100, 100)
+        const layer2 = new Layer(info2)
+        let c2 = new Color()    
+        c2.b = 1.0
+        c2.a = 1.0
+        layer2.fill(c2)
+
+        this.layers.push(layer0)
+        this.layers.push(layer1)
+        this.layers.push(layer2)
+
+        // マウスイベント
+        document.getElementById("layer-1").onmousedown = () => {
+            canvasView.setTexture(layer0.texture)
+        }
+
+        document.getElementById("layer-2").onmousedown = () => {
+            canvasView.setTexture(layer1.texture)
+        }
+
+        document.getElementById("layer-3").onmousedown = () => {
+            canvasView.setTexture(layer2.texture)
+        }
     }
 
     // 描画する
