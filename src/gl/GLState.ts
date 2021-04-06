@@ -8,6 +8,9 @@ export class GLState {
     // ビューポートのサイズ
     private static _viewport: Vector = new Vector()
 
+    // オフスクリーン用のフレームバッファ
+    private static _frameBuffer: WebGLFramebuffer
+
     // コンテキストを取得する
     public static get context(): WebGLRenderingContext {
         return GLState._context
@@ -16,6 +19,7 @@ export class GLState {
     // コンテキストを設定する
     public static set context(value: WebGLRenderingContext) {
         GLState._context = value
+        this._frameBuffer = GLState.context.createFramebuffer()
     }
 
     // ビューポートの幅を設定する
@@ -36,6 +40,11 @@ export class GLState {
     // ビューポートの高さを返す
     public static get height(): number {
         return this._viewport.y
+    }
+
+    // フレームバッファを返す
+    public static get frameBuffer(): WebGLFramebuffer {
+        return GLState._frameBuffer
     }
 
     // GLの座標に変換する

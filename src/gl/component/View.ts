@@ -20,12 +20,12 @@ export class View {
     protected height: number = 0.0
     // 拡大率
     protected scale: number = 0.0 
-    // 背景色   
-    protected backgroundColor: Color = new Color()
     // テクスチャ
     protected texture: Texture = null
     // 子View
     protected children: View[] =　new Array<View>()
+    // 頂点色
+    protected vertexColors: Color[] = new Array<Color>()
 
     // 位置を設定する
     public setPosition(pos: Vector) {
@@ -44,7 +44,14 @@ export class View {
 
     // 背景色を設定する
     public setbackgroundColor(color: Color) {
-        this.backgroundColor = color
+        this.vertexColors = [color, color, color, color]
+    }
+
+    // 背景色を設定する(4頂点)
+    public setAllBackgroundColor(colorLeftTop: Color, colorRightTop: Color,
+         colorLeftBottom: Color, colorRightBottom: Color) {
+        this.vertexColors = [colorLeftTop, colorRightTop, colorLeftBottom,
+             colorRightBottom]
     }
 
     // 頂点座標を取得する
@@ -75,13 +82,6 @@ export class View {
                 GLState.convertVertex(v1),
                 GLState.convertVertex(v2),
                 GLState.convertVertex(v3)]
-    }
-
-    // 頂点色を返す
-    // 独自の形状を持つViewはこれをオーバーライドする
-    public getVertexColors(): Array<Color> {
-        return [this.backgroundColor, this.backgroundColor, this.backgroundColor,
-             this.backgroundColor]
     }
 
     // テクスチャ座標を返す
@@ -126,8 +126,7 @@ export class View {
         } else { // テクスチャが指定されていないとき
             const shader = <PointColorShader>ShaderManager.getShader(ShaderType.PointColorShader)
             const vertices = this.getVertices()
-            const colors = this.getVertexColors()
-            shader.drawVector(gl.TRIANGLE_STRIP, vertices, colors)
+            shader.drawVector(gl.TRIANGLE_STRIP, vertices, this.vertexColors)
         }
     }
 }
