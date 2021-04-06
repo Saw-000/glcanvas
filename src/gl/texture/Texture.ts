@@ -45,13 +45,12 @@ export class Texture {
     public createTextureFromResourceName(src: string) {
         const image = new Image()
         image.onload = () => {
-            console.log("image loaded")
             this.createTextureFromImage(image)
             if (this.onload != null) {
                 this.onload()
             }
         }
-        image.src = "src"
+        image.src = src
     }
 
     // テクスチャを取得する

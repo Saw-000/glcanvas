@@ -1,4 +1,6 @@
+import { Color } from "../gl/color/Color"
 import { CanvasView } from "../gl/component/CanvasView"
+import { View } from "../gl/component/View"
 import { GLState } from "../gl/GLState"
 import { Vector } from "../gl/math/Vector"
 import { ShaderManager } from "../gl/shader/ShaderManager"
@@ -7,22 +9,40 @@ import { Texture } from "../gl/texture/Texture"
 // WebGLで描画するためのキャンバス
 export class GLCanvas {
 
-    // Viewコンポーネント
-    private canvasView: CanvasView
+    private views: View[]
 
     // コンストラクタ
     constructor(canvas: HTMLCanvasElement) {
+        this.views = []
+
         GLState.context = canvas.getContext("webgl")
         GLState.width = canvas.width
         GLState.height = canvas.height
         ShaderManager.load()
-        this.canvasView = new CanvasView(100, 100, new Vector())
 
+        // View
+        let view = new View()
+        let pos = new Vector()
+        pos.x = 200
+        pos.y = 200
+        view.setPosition(pos)
+        view.setWidth(50)
+        view.setHeight(50)
+        let color = new Color()
+        color.r = 1.0
+        color.a = 1.0
+        view.setbackgroundColor(color)
+
+        // カスタムView
+        let canvasView = new CanvasView(100, 100, new Vector())
         const texture = new Texture()
         texture.onload = () => {
-            this.canvasView.setTexture(texture)
+            canvasView.setTexture(texture)
         }
         texture.createTextureFromResourceName("res/twitter_icon.jpg")
+
+        this.views.push(view)
+        this.views.push(canvasView)
     }
 
     // 描画する
@@ -32,7 +52,9 @@ export class GLCanvas {
         gl.clear(gl.COLOR_BUFFER_BIT)
         gl.viewport(0, 0, GLState.width, GLState.height)
 
-        this.canvasView.draw()
+        this.views.forEach( (view) => {
+            view.draw()
+        })
     }
 
     // アニメーションループを開始する
